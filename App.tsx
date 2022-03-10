@@ -1,22 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
+import React, { createContext } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import AuthForm from './src/components/AuthForm';
+import store from './src/store/store';
 
-import useCachedResources from './hooks/useCachedResources';
-import useColorScheme from './hooks/useColorScheme';
-import Navigation from './navigation';
+export const Context = createContext({ store });
 
-export default function App() {
-  const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
-
-  if (!isLoadingComplete) {
-    return null;
-  } else {
-    return (
+const App = () => {
+  return (
+    <Context.Provider value={{ store }}>
       <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
+        <AuthForm />
       </SafeAreaProvider>
-    );
-  }
-}
+    </Context.Provider>
+  );
+};
+
+export default App;

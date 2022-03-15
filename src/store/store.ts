@@ -1,12 +1,18 @@
-import { makeAutoObservable } from 'mobx';
+import React from 'react';
+import { makeAutoObservable, makeObservable, observable, action, flow } from 'mobx';
 import AuthService from '../services/AuthService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-class Store {
+class AuthStore {
   isAuth = false;
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      isAuth: observable,
+      login: action.bound,
+      logout: action.bound,
+      setAuth: action.bound,
+    });
   }
 
   setAuth(state: boolean) {
@@ -27,7 +33,6 @@ class Store {
 
   async logout() {
     try {
-      const response = await AuthService.logout();
       AsyncStorage.removeItem('accessToken');
       this.setAuth(false);
     } catch (error) {
@@ -38,4 +43,7 @@ class Store {
   }
 }
 
-export default new Store();
+const authStore = new AuthStore();
+
+export const authStoreContext = React.createContext(authStore);
+export const useAuthStore = () => React.useContext(authStoreContext);

@@ -8,6 +8,6 @@ export default class AuthService {
   }
 
   static async logout() {
-    return api.post('/oauth/token');
+    return;
   }
 }

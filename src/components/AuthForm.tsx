@@ -1,13 +1,14 @@
+import { observer } from 'mobx-react-lite';
 import React, { useContext, useState } from 'react';
 import { View, TextInput, StyleSheet, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Context } from '../../App';
+import { authStoreContext, useAuthStore } from '../store/store';
 
-const AuthForm = () => {
+const AuthForm = observer(() => {
   const [username, setUsername] = useState('59999998022');
   const [password, setPassword] = useState('PMTVTT6');
 
-  const { store } = useContext(Context);
+  const { login } = useAuthStore();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -19,10 +20,10 @@ const AuthForm = () => {
         secureTextEntry
         style={{ padding: 10 }}
       />
-      <Button title="Войти" onPress={() => store.login(username, password)} />
+      <Button title="Войти" onPress={() => login(username, password)} />
     </SafeAreaView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

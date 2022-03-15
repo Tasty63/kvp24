@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import AuthService from '../services/AuthServise';
+import AuthService from '../services/AuthService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class Store {

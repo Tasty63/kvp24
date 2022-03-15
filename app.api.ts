@@ -1,8 +1,11 @@
 export interface AuthResponse {
   access_token: string;
-  token_type: string;
-  refresh_token: string;
   expires_in: number;
-  scope: string;
+  is_dispatch_enabled: boolean;
+  is_eula_accepted: boolean;
+  is_user_verified: boolean;
   jti: string;
+  refresh_token: string;
+  scope: string;
+  token_type: string;
 }

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { createContext, FC } from 'react';
-import { authStoreContext, useAuthStore } from './src/store/store';
+import { authStoreContext, useAuthStore } from './src/store/AuthStore';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';

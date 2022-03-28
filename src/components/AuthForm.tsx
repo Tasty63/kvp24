@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext, useState } from 'react';
-import { Pressable, Text, TouchableOpacity} from "react-native";
 import { View, TextInput, StyleSheet, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { authStoreContext, useAuthStore } from '../store/store';

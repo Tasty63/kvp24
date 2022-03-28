@@ -4,6 +4,7 @@ import { View, TextInput, StyleSheet, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { authStoreContext, useAuthStore } from '../store/store';
 
+
 const AuthForm = observer(() => {
   const [username, setUsername] = useState('59999998022');
   const [password, setPassword] = useState('PMTVTT6');
@@ -12,6 +13,7 @@ const AuthForm = observer(() => {
 
   return (
     <SafeAreaView style={styles.container}>
+      
       <TextInput onChangeText={setUsername} value={username} placeholder="Логин" style={{ padding: 10 }} />
       <TextInput
         onChangeText={setPassword}
@@ -20,7 +22,7 @@ const AuthForm = observer(() => {
         secureTextEntry
         style={{ padding: 10 }}
       />
-      <Button title="Войти" onPress={() => login(username, password)} />
+      <Button disabled={username.length == 0 || password.length == 0} title="Войти" onPress={() => login(username, password)} />
     </SafeAreaView>
   );
 });

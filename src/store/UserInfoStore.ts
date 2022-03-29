@@ -1,4 +1,4 @@
-import { UserService } from './../services/UserService';
+import UserService from './../services/UserService';
 import { makeAutoObservable } from 'mobx';
 import { Text, View } from 'react-native';
 import React from 'react';
@@ -16,11 +16,9 @@ class UserInfoStore {
       const info = await UserService.requestInfo();
       console.log(info.data);
     } catch (error) {
-      console.log(error);
-
-      // if (error instanceof Error) {
-      //   console.log(error.name);
-      // }
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
     }
   }
 }

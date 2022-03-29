@@ -28,6 +28,9 @@ class AuthStore {
 
   async logout() {
     try {
+      const response = await AuthService.logout();
+      console.log(response);
+
       await AsyncStorage.removeItem('accessToken');
       this.setAuth(false);
     } catch (error) {

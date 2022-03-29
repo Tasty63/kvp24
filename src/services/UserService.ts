@@ -5,10 +5,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthResponse } from '../../app.api';
 import axios from 'axios';
 
-export class UserService {
-  static async requestInfo() {
-    return await api.get('/v1/profile/banks');
+class UserService {
+  async requestInfo() {
+    return await api.get('/v1/profile');
   }
 }
 
-export default UserService;
+export default new UserService();

@@ -2,6 +2,8 @@ import React from 'react';
 import { makeAutoObservable, makeObservable, observable, action, flow } from 'mobx';
 import AuthService from '../services/AuthService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { AuthResponse } from '../../app.api';
 
 class AuthStore {
   isAuth = false;
@@ -18,6 +20,7 @@ class AuthStore {
     try {
       const response = await AuthService.login(username, password);
       await AsyncStorage.setItem('accessToken', response.data.access_token);
+      await AsyncStorage.setItem('refreshToken', response.data.refresh_token);
       this.setAuth(true);
     } catch (error) {
       if (error instanceof Error) {
@@ -29,10 +32,22 @@ class AuthStore {
   async logout() {
     try {
       const response = await AuthService.logout();
-      console.log(response);
-
       await AsyncStorage.removeItem('accessToken');
+      await AsyncStorage.removeItem('refreshToken');
       this.setAuth(false);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    }
+  }
+
+  async checkAuth() {
+    try {
+      const response = await AuthService.check();
+      await AsyncStorage.setItem('accessToken', response.data.access_token);
+      await AsyncStorage.setItem('refreshToken', response.data.refresh_token);
+      this.setAuth(true);
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);

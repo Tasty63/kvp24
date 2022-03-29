@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { createContext, FC } from 'react';
+import React, { createContext, FC, useEffect } from 'react';
 import { authStoreContext, useAuthStore } from './src/store/AuthStore';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -24,7 +24,11 @@ const screenOptions = {
 };
 
 const App = observer(() => {
-  const { isAuth } = useAuthStore();
+  const { isAuth, checkAuth } = useAuthStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   return (
     <NavigationContainer>

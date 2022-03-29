@@ -2,8 +2,6 @@ import React from 'react';
 import { makeAutoObservable, makeObservable, observable, action, flow } from 'mobx';
 import AuthService from '../services/AuthService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import { AuthResponse } from '../../app.api';
 
 class AuthStore {
   isAuth = false;

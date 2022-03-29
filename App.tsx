@@ -8,6 +8,7 @@ import AuthScreen from './src/screens/AuthScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import { observer } from 'mobx-react-lite';
 import { decode, encode } from 'base-64';
+import UserInfoStore from './src/store/UserInfoStore';
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -18,6 +19,8 @@ if (!global.atob) {
 }
 
 const Stack = createNativeStackNavigator();
+export const userInfoStore = new UserInfoStore();
+export const Context = createContext({ userInfoStore });
 
 const screenOptions = {
   headerShown: false,
@@ -31,17 +34,19 @@ const App = observer(() => {
   }, []);
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={screenOptions}>
-        {isAuth ? (
-          <Stack.Screen name="Home" component={HomeScreen} />
-        ) : (
-          <>
-            <Stack.Screen name="Auth" component={AuthScreen} />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Context.Provider value={{ userInfoStore }}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={screenOptions}>
+          {isAuth ? (
+            <Stack.Screen name="Home" component={HomeScreen} />
+          ) : (
+            <>
+              <Stack.Screen name="Auth" component={AuthScreen} />
+            </>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Context.Provider>
   );
 });
 

@@ -1,20 +1,30 @@
 import UserService from './../services/UserService';
 import { makeAutoObservable } from 'mobx';
-import { Text, View } from 'react-native';
-import React from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { userInfo } from '../../app.api';
 
 class UserInfoStore {
-  user = {};
+  userInfo: userInfo = {
+    address: '',
+    companyName: '',
+    contractNumber: '',
+  };
 
   constructor() {
     makeAutoObservable(this);
   }
 
+  setUserInfo(address: string, companyName: string, contractNumber: string) {
+    this.userInfo = {
+      address,
+      companyName,
+      contractNumber,
+    };
+  }
+
   async getInfo() {
     try {
-      const info = await UserService.requestInfo();
-      console.log(info.data);
+      const info = (await UserService.requestInfo()).data;
+      this.setUserInfo(info.address, info.serviceContract.managerialCompany.name, info.serviceContract.contractNumber);
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);
@@ -23,4 +33,4 @@ class UserInfoStore {
   }
 }
 
-export default new UserInfoStore();
+export default UserInfoStore;

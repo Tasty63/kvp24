@@ -1,18 +1,18 @@
 import React, { useContext, useEffect } from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet, Text, Button, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
-const HomeScreen = observer(() => {
+const IndicationsScreen = observer(() => {
   return (
-    <SafeAreaProvider style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.text}>Показания</Text>
       <View>
         <View style={styles.info}></View>
         <View style={styles.info}></View>
         <View style={styles.info}></View>
       </View>
-    </SafeAreaProvider>
+    </SafeAreaView>
   );
 });
 
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default IndicationsScreen;

@@ -7,12 +7,7 @@ class AuthStore {
   isAuth = false;
 
   constructor() {
-    makeObservable(this, {
-      isAuth: observable,
-      login: action.bound,
-      logout: action.bound,
-      setAuth: action.bound,
-    });
+    makeAutoObservable(this, {}, { autoBind: true });
   }
 
   setAuth(state: boolean) {
@@ -22,7 +17,8 @@ class AuthStore {
   async login(username: string, password: string) {
     try {
       const response = await AuthService.login(username, password);
-      AsyncStorage.setItem('accessToken', response.data.access_token);
+      await AsyncStorage.setItem('accessToken', response.data.access_token);
+      await AsyncStorage.setItem('refreshToken', response.data.refresh_token);
       this.setAuth(true);
     } catch (error) {
       if (error instanceof Error) {
@@ -33,8 +29,23 @@ class AuthStore {
 
   async logout() {
     try {
-      AsyncStorage.removeItem('accessToken');
+      const response = await AuthService.logout();
+      await AsyncStorage.removeItem('accessToken');
+      await AsyncStorage.removeItem('refreshToken');
       this.setAuth(false);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    }
+  }
+
+  async checkAuth() {
+    try {
+      const response = await AuthService.check();
+      await AsyncStorage.setItem('accessToken', response.data.access_token);
+      await AsyncStorage.setItem('refreshToken', response.data.refresh_token);
+      this.setAuth(true);
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);

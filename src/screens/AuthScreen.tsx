@@ -1,18 +1,19 @@
 import React from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet } from 'react-native';
 import AuthForm from '../components/AuthForm';
 
 const AuthScreen = () => {
   return (
-    <SafeAreaProvider style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <AuthForm />
-    </SafeAreaProvider>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    height: '100%',
     justifyContent: 'center',
   },
 });

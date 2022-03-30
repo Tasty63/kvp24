@@ -1,29 +1,55 @@
-import React, { useContext } from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { StyleSheet, Text, Button } from 'react-native';
-import { useAuthStore } from '../store/store';
+import React, { useContext, useEffect } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet, Text, Button, View } from 'react-native';
+import { useAuthStore } from '../store/AuthStore';
 import { observer } from 'mobx-react-lite';
+import { Context } from '../../App';
 
 const HomeScreen = observer(() => {
   const { logout } = useAuthStore();
+  const { userInfoStore } = useContext(Context);
+
+  useEffect(() => {
+    userInfoStore.getInfo();
+  }, []);
 
   return (
-    <SafeAreaProvider style={styles.container}>
-      <Text style={styles.text}>Hello</Text>
-      <Button title="Выйти" onPress={logout} />
-    </SafeAreaProvider>
+    <SafeAreaView style={styles.container}>
+      <View>
+        <View style={styles.info}>
+          <Text style={styles.text}>Лицевой счёт:</Text>
+          <Text style={styles.text}>{userInfoStore.userInfo.contractNumber}</Text>
+        </View>
+        <View style={styles.info}>
+          <Text style={styles.text}>Адрес</Text>
+          <Text style={styles.text}>{userInfoStore.userInfo.address}</Text>
+        </View>
+        <View style={styles.info}>
+          <Text style={styles.text}>Управляющая организация</Text>
+          <Text style={styles.text}>{userInfoStore.userInfo.companyName}</Text>
+        </View>
+      </View>
+      <View style={styles.button}>
+        <Button title="Выйти" onPress={logout} />
+      </View>
+    </SafeAreaView>
   );
 });
 
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
+    height: '100%',
     marginHorizontal: 30,
   },
   text: {
-    fontSize: 32,
-    textAlign: 'center',
-    marginVertical: 20,
+    fontSize: 16,
+  },
+  info: {
+    padding: 10,
+  },
+  button: {
+    marginTop: '100%',
   },
 });
 

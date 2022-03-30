@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useContext, useState } from 'react';
 import { View, TextInput, StyleSheet, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { authStoreContext, useAuthStore } from '../store/store';
+import { authStoreContext, useAuthStore } from '../store/AuthStore';
 
 
 const AuthForm = observer(() => {

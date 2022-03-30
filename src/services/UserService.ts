@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import api from '../http';
 import { UserProfileResponse } from '../../app.api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class UserService {
   async requestInfo() {
-    return await api.get<UserProfileResponse>('/v1/profile');
+    return api.get<UserProfileResponse>('/v1/profile');
   }
 }
 

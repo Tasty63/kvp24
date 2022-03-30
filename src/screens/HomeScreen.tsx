@@ -6,6 +6,7 @@ import { useAuthStore } from '../store/AuthStore';
 import { observer } from 'mobx-react-lite';
 import UserInfoStore from '../store/UserInfoStore';
 import { Context } from '../../App';
+import UserService from '../services/UserService';
 
 const HomeScreen = observer(() => {
   const { logout } = useAuthStore();
@@ -19,23 +20,22 @@ const HomeScreen = observer(() => {
     <SafeAreaProvider style={styles.container}>
       <View>
         <View style={styles.info}>
-          <Text>Имя УК:</Text>
-          <Text>{userInfoStore.userInfo.companyName}</Text>
+          <Text>Лицевой счёт:</Text>
+          <Text>{userInfoStore.userInfo.contractNumber}</Text>
         </View>
         <View style={styles.info}>
-          <Text>Адресс проживания:</Text>
+          <Text>Адрес</Text>
           <Text>{userInfoStore.userInfo.address}</Text>
         </View>
         <View style={styles.info}>
-          <Text>Номер лицевого счёта:</Text>
-          <Text>{userInfoStore.userInfo.contractNumber}</Text>
+          <Text>Управляющая организация</Text>
+          <Text>{userInfoStore.userInfo.companyName}</Text>
         </View>
       </View>
       <Text style={styles.text}>Hello</Text>
       <View style={styles.button}>
         <Button title="Выйти" onPress={logout} />
       </View>
-      <View style={styles.button}></View>
     </SafeAreaProvider>
   );
 });

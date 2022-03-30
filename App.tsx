@@ -9,6 +9,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import { observer } from 'mobx-react-lite';
 import { decode, encode } from 'base-64';
 import UserInfoStore from './src/store/UserInfoStore';
+import IndicationsScreen from './src/screens/IndicationsScreen';
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -42,6 +43,7 @@ const App = observer(() => {
           ) : (
             <>
               <Stack.Screen name="Auth" component={AuthScreen} />
+              <Stack.Screen name="Indications" component={IndicationsScreen} />
             </>
           )}
         </Stack.Navigator>

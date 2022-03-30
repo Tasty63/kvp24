@@ -1,3 +1,5 @@
+import { AxiosRequestConfig } from 'axios';
+
 export interface AuthResponse {
   access_token: string;
   expires_in: number;
@@ -63,3 +65,5 @@ export type userInfo = {
   companyName: string;
   contractNumber: string;
 };
+
+

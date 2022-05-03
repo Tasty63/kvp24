@@ -54,7 +54,4 @@ class AuthStore {
   }
 }
 
-const authStore = new AuthStore();
-
-export const authStoreContext = React.createContext(authStore);
-export const useAuthStore = () => React.useContext(authStoreContext);
+export default AuthStore;

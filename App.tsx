@@ -7,6 +7,7 @@ import { decode, encode } from 'base-64';
 import HomeTabs from './src/screens/HomeTabs';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Context, rootStore } from './src/store/RootStore';
+import EulaScreen from './src/screens/EulaScreen';
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -23,8 +24,9 @@ const screenOptions = {
 };
 
 const App = observer(() => {
-  const { authStore } = useContext(Context);
+  const { authStore, userInfoStore } = useContext(Context);
   const { isAuth, checkAuth } = authStore;
+  const { isEulaAccepted } = userInfoStore.userInfo;
 
   useEffect(() => {
     checkAuth();
@@ -36,7 +38,11 @@ const App = observer(() => {
         <NavigationContainer>
           <Stack.Navigator screenOptions={screenOptions}>
             {isAuth ? (
-              <Stack.Screen name="HomeTabs" component={HomeTabs} />
+              isEulaAccepted ? (
+                <Stack.Screen name="Home" component={HomeTabs} />
+              ) : (
+                <Stack.Screen name="Eula" component={EulaScreen} />
+              )
             ) : (
               <Stack.Screen name="Auth" component={AuthScreen} />
             )}

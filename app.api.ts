@@ -64,6 +64,7 @@ export type userInfo = {
   address: string;
   companyName: string;
   contractNumber: string;
+  isEulaAccepted: boolean;
 };
 
 export interface MeteringDeviceInfo {

@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import { Context } from '../store/RootStore';
+import { observer } from 'mobx-react-lite';
 
-const EulaScreen = () => {
+const EulaScreen = observer(() => {
   const [isChecked, setChecked] = useState(false);
+  const { userInfoStore } = useContext(Context);
+  const { setEulaAccepted } = userInfoStore;
+
+  useEffect(() => {
+    userInfoStore.getInfo();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -17,10 +25,10 @@ const EulaScreen = () => {
           данных.
         </Text>
       </Text>
-      <Button title="Продолжить" disabled={!isChecked} onPress={() => {}} />
+      <Button title="Продолжить" disabled={!isChecked} onPress={setEulaAccepted} />
     </SafeAreaView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

@@ -11,7 +11,7 @@ class UserInfoStore {
   };
 
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {}, { autoBind: true });
   }
 
   setUserInfo(address: string, companyName: string, contractNumber: string, isEulaAccepted: boolean) {
@@ -21,6 +21,17 @@ class UserInfoStore {
       contractNumber,
       isEulaAccepted,
     };
+  }
+
+  async setEulaAccepted() {
+    try {
+      await UserService.requestEula();
+      this.userInfo.isEulaAccepted = true;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    }
   }
 
   async getInfo() {

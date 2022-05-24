@@ -8,7 +8,7 @@ class UserService {
   }
 
   async requestEula() {
-    return api.post('/v1/profile/eula');
+    return api.post('/v1/profile/eula?accepted=true');
   }
 }
 

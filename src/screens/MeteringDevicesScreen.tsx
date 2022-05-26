@@ -4,37 +4,46 @@ import { StyleSheet, Text, Button, View, TextInput } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { Context } from '../store/RootStore';
 import { useFocusEffect } from '@react-navigation/native';
-
-export interface MeteringDeviceField {
-  id: number;
-  value: string;
-}
+import { MeteringDeviceField } from '../../app.api';
 
 const MeteringDevicesScreen = observer(() => {
-  const [fields, setFields] = useState<MeteringDeviceField[]>([]);
+  const [values, setValues] = useState<MeteringDeviceField>({});
   const { meteringDevicesStore } = useContext(Context);
 
-  useFocusEffect(
-    useCallback(() => {
-      meteringDevicesStore.getMeteringDevices();
-    }, [])
-  );
+  useEffect(() => {
+    initMeteringDevices();
+  }, []);
 
-  const setField = (id: number, value: string) => {
-    setFields([...fields, { id, value }]);
+  const initMeteringDevices = async () => {
+    await meteringDevicesStore.getMeteringDevices();
+    const inputs = meteringDevicesStore.meteringDevices.reduce(
+      (acc, meteringDevice) => ({ ...acc, [meteringDevice.id]: meteringDevice.todayReadingValue?.toString() }),
+      {}
+    );
+    setValues(inputs);
+  };
+
+  const handleInputChange = (id: number, value: string) => {
+    setValues({ ...values, [id]: value });
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.text}>Показания</Text>
-
       <View>
         {meteringDevicesStore.meteringDevices.map((meteringDevice) => (
           <View key={meteringDevice.id} style={styles.info}>
             <Text>{meteringDevice.facility}</Text>
-            <TextInput></TextInput>
+            <TextInput
+              keyboardType="numeric"
+              value={values[meteringDevice.id]}
+              onChangeText={(newValue) => handleInputChange(meteringDevice.id, newValue)}
+            ></TextInput>
           </View>
         ))}
+      </View>
+      <View>
+        <Button title="Отправить" onPress={() => console.log(values)} />
       </View>
     </SafeAreaView>
   );

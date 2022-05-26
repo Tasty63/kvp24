@@ -91,4 +91,6 @@ export interface Message {
   value: string;
 }
 
-export type MeteringDevice = Pick<MeteringDeviceInfo, 'facility'>;
+export interface MeteringDeviceField {
+  [id: string]: string;
+}

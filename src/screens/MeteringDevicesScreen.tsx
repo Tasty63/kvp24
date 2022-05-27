@@ -3,11 +3,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet, Text, Button, View, TextInput } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { Context } from '../store/RootStore';
-import { MeteringDeviceField } from '../../app.api';
+import { MeteringDeviceValues } from '../../app.api';
 
 const MeteringDevicesScreen = observer(() => {
-  const [values, setValues] = useState<MeteringDeviceField>({});
+  const [values, setValues] = useState<MeteringDeviceValues>({});
   const { meteringDevicesStore } = useContext(Context);
+  const { sendMeteringDevicesReadings } = meteringDevicesStore;
 
   useEffect(() => {
     initMeteringDevices();
@@ -49,7 +50,12 @@ const MeteringDevicesScreen = observer(() => {
         ))}
       </View>
       <View>
-        <Button title="Передать показания" onPress={() => console.log(values)} />
+        <Button
+          title="Передать показания"
+          onPress={() => {
+            sendMeteringDevicesReadings(values);
+          }}
+        />
       </View>
     </SafeAreaView>
   );

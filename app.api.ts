@@ -91,6 +91,11 @@ export interface Message {
   value: string;
 }
 
-export interface MeteringDeviceField {
+export interface MeteringDeviceValues {
   [id: string]: string;
+}
+
+export interface Reading {
+  muId: number;
+  readings: number;
 }

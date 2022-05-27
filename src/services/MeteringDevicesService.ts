@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { MeteringDeviceValues, Reading } from './../../app.api';
 import { MeteringDeviceInfo } from '../../app.api';
 import api from '../http';
 
@@ -7,7 +7,9 @@ class MeteringDevicesService {
     return api.get<MeteringDeviceInfo[]>('/v1/metering_device');
   }
 
-  async sendInfo() {}
+  async sendReadings(readings: Reading[]) {
+    return api.post('/v1/metering_device/readings_seq', { needSave: false, readings });
+  }
 }
 
 export default new MeteringDevicesService();

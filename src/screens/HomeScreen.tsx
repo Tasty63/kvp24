@@ -4,7 +4,6 @@ import { StyleSheet, Text, Button, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { Context } from '../store/RootStore';
 
-
 const HomeScreen = observer(() => {
   const { userInfoStore, authStore } = useContext(Context);
   const { logout } = authStore;

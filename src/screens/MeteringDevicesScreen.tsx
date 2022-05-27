@@ -3,7 +3,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet, Text, Button, View, TextInput } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { Context } from '../store/RootStore';
-import { useFocusEffect } from '@react-navigation/native';
 import { MeteringDeviceField } from '../../app.api';
 
 const MeteringDevicesScreen = observer(() => {
@@ -29,21 +28,28 @@ const MeteringDevicesScreen = observer(() => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>Показания</Text>
+      <Text style={styles.title}>Показания</Text>
       <View>
         {meteringDevicesStore.meteringDevices.map((meteringDevice) => (
           <View key={meteringDevice.id} style={styles.info}>
-            <Text>{meteringDevice.facility}</Text>
-            <TextInput
-              keyboardType="numeric"
-              value={values[meteringDevice.id]}
-              onChangeText={(newValue) => handleInputChange(meteringDevice.id, newValue)}
-            ></TextInput>
+            <View>
+              <Text style={styles.text}>№{meteringDevice.number}</Text>
+              <Text style={styles.text}>{meteringDevice.facility}</Text>
+            </View>
+            <View style={styles.info__right}>
+              <Text style={styles.text}>{meteringDevice.todayReadingDate}</Text>
+              <TextInput
+                style={styles.text}
+                keyboardType="numeric"
+                value={values[meteringDevice.id]}
+                onChangeText={(newValue) => handleInputChange(meteringDevice.id, newValue)}
+              ></TextInput>
+            </View>
           </View>
         ))}
       </View>
       <View>
-        <Button title="Отправить" onPress={() => console.log(values)} />
+        <Button title="Передать показания" onPress={() => console.log(values)} />
       </View>
     </SafeAreaView>
   );
@@ -54,15 +60,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginHorizontal: 30,
   },
-  text: {
+  title: {
     fontSize: 32,
     textAlign: 'center',
     marginVertical: 20,
   },
   info: {
-    fontSize: 24,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 5,
     padding: 10,
   },
+  text: { fontSize: 18 },
+  info__left: {},
+  info__right: {},
   button: {
     marginVertical: 20,
   },

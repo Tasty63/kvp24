@@ -39,7 +39,7 @@ const App = observer(() => {
           <Stack.Navigator screenOptions={screenOptions}>
             {isAuth ? (
               isEulaAccepted ? (
-                <Stack.Screen name="Home" component={HomeTabs} />
+                <Stack.Screen name="HomeTabs" component={HomeTabs} />
               ) : (
                 <Stack.Screen name="Eula" component={EulaScreen} />
               )

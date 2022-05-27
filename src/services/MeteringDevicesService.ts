@@ -6,6 +6,8 @@ class MeteringDevicesService {
   async requestInfo() {
     return api.get<MeteringDeviceInfo[]>('/v1/metering_device');
   }
+
+  async sendInfo() {}
 }
 
 export default new MeteringDevicesService();

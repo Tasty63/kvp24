@@ -8,7 +8,7 @@ class MeteringDevicesService {
   }
 
   async sendReadings(readings: Reading[]) {
-    return api.post('/v1/metering_device/readings_seq', { needSave: false, readings });
+    return api.post('/v1/metering_device/readings_seq', { needSave: true, readings });
   }
 }
 

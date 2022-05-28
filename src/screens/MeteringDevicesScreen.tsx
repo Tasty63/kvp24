@@ -17,7 +17,11 @@ const MeteringDevicesScreen = observer(() => {
   const initMeteringDevices = async () => {
     await meteringDevicesStore.getMeteringDevices();
     const inputs = meteringDevicesStore.meteringDevices.reduce(
-      (acc, meteringDevice) => ({ ...acc, [meteringDevice.id]: meteringDevice.todayReadingValue?.toString() }),
+      (acc, meteringDevice) => ({
+        ...acc,
+        [meteringDevice.id]:
+          meteringDevice.todayReadingValue?.toString() || meteringDevice.lastReadingValue?.toString(),
+      }),
       {}
     );
     setValues(inputs);
@@ -37,7 +41,7 @@ const MeteringDevicesScreen = observer(() => {
               <Text style={styles.text}>№{meteringDevice.number}</Text>
               <Text style={styles.text}>{meteringDevice.facility}</Text>
             </View>
-            <View style={styles.info__right}>
+            <View>
               <Text style={styles.text}>{meteringDevice.todayReadingDate}</Text>
               <TextInput
                 style={styles.text}
@@ -78,8 +82,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   text: { fontSize: 18 },
-  info__left: {},
-  info__right: {},
   button: {
     marginVertical: 20,
   },

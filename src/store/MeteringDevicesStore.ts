@@ -28,7 +28,7 @@ class MeteringDevicesStore {
     try {
       const readings: Reading[] = Object.entries(values).map((indication) => ({
         muId: parseInt(indication[0], 10),
-        readings: parseInt(indication[1], 10),
+        readings: parseFloat(indication[1]),
       }));
 
       MeteringDevicesService.sendReadings(readings);

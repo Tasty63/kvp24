@@ -64,6 +64,38 @@ export type userInfo = {
   address: string;
   companyName: string;
   contractNumber: string;
+  isEulaAccepted: boolean;
 };
 
+export interface MeteringDeviceInfo {
+  description: string;
+  checkDate: string | null;
+  checkDateMessage: Message;
+  dateDismount: string | null;
+  dateMount: string;
+  facility: 'ГВС' | 'ХВС' | 'ТЭ' | 'ЭЛ' | 'ЭЛД' | 'ЭЛН' | 'Газ' | null;
+  id: number;
+  isEnabled: boolean;
+  isUnauthRegAllowedByUser: boolean;
+  lastReadingDate: string | null;
+  lastReadingValue: number | null;
+  messages: Message[];
+  number: string;
+  priority: number;
+  todayReadingDate: string | null;
+  todayReadingValue: number | null;
+}
 
+export interface Message {
+  messageType: 'INFO' | 'WARNING' | 'ERROR';
+  value: string;
+}
+
+export interface MeteringDeviceValues {
+  [id: string]: string;
+}
+
+export interface Reading {
+  muId: number;
+  readings: number;
+}

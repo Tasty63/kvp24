@@ -1,13 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet, Text, Button, View } from 'react-native';
-import { useAuthStore } from '../store/AuthStore';
 import { observer } from 'mobx-react-lite';
-import { Context } from '../../App';
+import { Context } from '../store/RootStore';
 
 const HomeScreen = observer(() => {
-  const { logout } = useAuthStore();
-  const { userInfoStore } = useContext(Context);
+  const { userInfoStore, authStore } = useContext(Context);
+  const { logout } = authStore;
 
   useEffect(() => {
     userInfoStore.getInfo();
